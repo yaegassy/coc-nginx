@@ -18,6 +18,7 @@ Plug 'yaegassy/coc-nginx', {'do': 'yarn install --frozen-lockfile'}
 **CocInstall(No plan)**:
 
 > @pappasam is the author of coc-jedi and jedi-language-server.
+>
 > @pappasam might create coc-nginx himself, so I won't publish it on npm.
 
 ## Detect: nginx-language-server
