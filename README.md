@@ -2,6 +2,8 @@
 
 [nginx-language-server](https://github.com/pappasam/nginx-language-server) extension for [coc.nvim](https://github.com/neoclide/coc.nvim)
 
+<img width="780" alt="coc-nginx-demo" src="https://user-images.githubusercontent.com/188642/115322781-c329f900-a1c1-11eb-920e-c49f3bb96af1.gif">
+
 ## Features
 
 - Completion
