@@ -1,0 +1,75 @@
+{
+  "name": "coc-nginx",
+  "version": "0.0.1",
+  "nginxLsVersion": "0.5.0",
+  "description": "nginx-language-server extension for coc.nvim",
+  "author": "yaegassy <yosstools@gmail.com>",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "keywords": [
+    "coc.nvim"
+  ],
+  "engines": {
+    "coc": "^0.0.80"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yaegassy/coc-nginx"
+  },
+  "scripts": {
+    "lint": "eslint src --ext ts",
+    "clean": "rimraf lib",
+    "watch": "node esbuild.js --watch",
+    "build": "node esbuild.js",
+    "prepare": "node esbuild.js"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120,
+    "semi": true
+  },
+  "devDependencies": {
+    "@types/node": "^12.11.7",
+    "@types/rimraf": "^3.0.0",
+    "@types/which": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.8.2",
+    "@typescript-eslint/parser": "^4.8.2",
+    "coc.nvim": "^0.0.80",
+    "esbuild": "^0.8.42",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.2.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.1.2",
+    "which": "^2.0.2"
+  },
+  "activationEvents": [
+    "onLanguage:nginx",
+    "workspaceContains:**/nginx.conf"
+  ],
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "coc-nginx configuration",
+      "properties": {
+        "nginx.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable coc-nginx extension"
+        },
+        "nginx.commandPath": {
+          "type": "string",
+          "default": "",
+          "description": "(Optional) The custom path to the nginx-language-server (Absolute path)."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "nginx.installLanguageServer",
+        "title": "Install nginx-language-server (builtin)"
+      }
+    ]
+  }
+}
