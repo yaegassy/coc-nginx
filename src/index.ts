@@ -37,11 +37,13 @@ export async function activate(context: ExtensionContext): Promise<void> {
   if (!nginxLsPath) {
     // 2
     nginxLsPath = whichNginxLsCommand();
-    if (
-      fs.existsSync(path.join(context.storagePath, 'nginx-language-server', 'venv', 'bin', 'nginx-language-server'))
-    ) {
-      // 3
-      nginxLsPath = path.join(context.storagePath, 'nginx-language-server', 'venv', 'bin', 'nginx-language-server');
+    if (!nginxLsPath) {
+      if (
+        fs.existsSync(path.join(context.storagePath, 'nginx-language-server', 'venv', 'bin', 'nginx-language-server'))
+      ) {
+        // 3
+        nginxLsPath = path.join(context.storagePath, 'nginx-language-server', 'venv', 'bin', 'nginx-language-server');
+      }
     }
   }
 
