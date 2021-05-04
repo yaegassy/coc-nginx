@@ -13,9 +13,9 @@ const exec = util.promisify(child_process.exec);
 export async function nginxLsInstall(pythonCommand: string, context: ExtensionContext): Promise<void> {
   const pathVenv = path.join(context.storagePath, 'nginx-language-server', 'venv');
 
-  let pathVenvPython = path.join(context.storagePath, 'pysen-ls', 'venv', 'bin', 'python');
+  let pathVenvPython = path.join(context.storagePath, 'nginx-language-server', 'venv', 'bin', 'python');
   if (process.platform === 'win32') {
-    pathVenvPython = path.join(context.storagePath, 'pysen-ls', 'venv', 'Scripts', 'python');
+    pathVenvPython = path.join(context.storagePath, 'nginx-language-server', 'venv', 'Scripts', 'python');
   }
 
   const statusItem = window.createStatusBarItem(0, { progress: true });
