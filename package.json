@@ -61,7 +61,12 @@
         "nginx.commandPath": {
           "type": "string",
           "default": "",
-          "description": "(Optional) The custom path to the nginx-language-server (Absolute path)."
+          "description": "The custom path to the nginx-language-server (Absolute path)."
+        },
+        "nginx.builtin.pythonPath": {
+          "type": "string",
+          "default": "",
+          "description": "Python 3.x path (Absolute path) to be used for built-in install"
         }
       }
     },

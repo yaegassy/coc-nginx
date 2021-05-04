@@ -8,6 +8,7 @@ import {
   services,
   workspace,
   window,
+  WorkspaceConfiguration,
 } from 'coc.nvim';
 
 import fs from 'fs';
@@ -39,18 +40,48 @@ export async function activate(context: ExtensionContext): Promise<void> {
     nginxLsPath = whichNginxLsCommand();
     if (!nginxLsPath) {
       if (
+        fs.existsSync(
+          path.join(context.storagePath, 'nginx-language-server', 'venv', 'Scripts', 'nginx-language-server.exe')
+        ) ||
         fs.existsSync(path.join(context.storagePath, 'nginx-language-server', 'venv', 'bin', 'nginx-language-server'))
       ) {
         // 3
-        nginxLsPath = path.join(context.storagePath, 'nginx-language-server', 'venv', 'bin', 'nginx-language-server');
+        if (process.platform === 'win32') {
+          nginxLsPath = path.join(
+            context.storagePath,
+            'nginx-language-server',
+            'venv',
+            'Scripts',
+            'nginx-language-server.exe'
+          );
+        } else {
+          nginxLsPath = path.join(context.storagePath, 'nginx-language-server', 'venv', 'bin', 'nginx-language-server');
+        }
       }
     }
   }
 
+  const pythonCommand = getPythonPath(extensionConfig);
+
   // Install "nginx-language-server" if it does not exist.
   if (!nginxLsPath) {
-    await installWrapper(context);
-    nginxLsPath = path.join(context.storagePath, 'nginx-language-server', 'venv', 'bin', 'nginx-language-server');
+    if (pythonCommand) {
+      await installWrapper(pythonCommand, context);
+    } else {
+      window.showErrorMessage('python3/python command not found');
+    }
+
+    if (process.platform === 'win32') {
+      nginxLsPath = path.join(
+        context.storagePath,
+        'nginx-language-server',
+        'venv',
+        'Scripts',
+        'nginx-language-server.exe'
+      );
+    } else {
+      nginxLsPath = path.join(context.storagePath, 'nginx-language-server', 'venv', 'bin', 'nginx-language-server');
+    }
   }
 
   // If "nginx-language-server" does not exist completely, terminate the process.
@@ -61,7 +92,11 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   context.subscriptions.push(
     commands.registerCommand('nginx.installLanguageServer', async () => {
-      await installWrapper(context);
+      if (pythonCommand) {
+        await installWrapper(pythonCommand, context);
+      } else {
+        window.showErrorMessage('python3/python command not found');
+      }
     })
   );
 
@@ -76,8 +111,6 @@ export async function activate(context: ExtensionContext): Promise<void> {
       configurationSection: 'nginx-language-server',
     },
     outputChannelName: 'nginx-language-server',
-    //revealOutputChannelOn: RevealOutputChannelOn.Never,
-    //initializationOptions: extensionConfig.initializationOptions || {},
   };
 
   const client = new LanguageClient('nginx-language-server', 'Nginx Language Server', serverOptions, clientOptions);
@@ -85,7 +118,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   subscriptions.push(services.registLanguageClient(client));
 }
 
-async function installWrapper(context: ExtensionContext) {
+async function installWrapper(pythonCommand: string, context: ExtensionContext) {
   const msg = 'Install "nginx-language-server"?';
   context.workspaceState;
 
@@ -93,7 +126,7 @@ async function installWrapper(context: ExtensionContext) {
   ret = await window.showQuickpick(['Yes', 'Cancel'], msg);
   if (ret === 0) {
     try {
-      await nginxLsInstall(context);
+      await nginxLsInstall(pythonCommand, context);
     } catch (e) {
       return;
     }
@@ -108,4 +141,29 @@ function whichNginxLsCommand(): string {
   } catch (e) {
     return '';
   }
+}
+
+function getPythonPath(config: WorkspaceConfiguration): string {
+  let pythonPath = config.get<string>('builtin.pythonPath', '');
+  if (pythonPath) {
+    return pythonPath;
+  }
+
+  try {
+    which.sync('python3');
+    pythonPath = 'python3';
+    return pythonPath;
+  } catch (e) {
+    // noop
+  }
+
+  try {
+    which.sync('python');
+    pythonPath = 'python';
+    return pythonPath;
+  } catch (e) {
+    // noop
+  }
+
+  return pythonPath;
 }

@@ -47,13 +47,14 @@ You can also run the installation command manually.
 
 - `nginx.enable`: Enable coc-nginx extension, default: `true`
 - `nginx.commandPath`: The custom path to the nginx-language-server (Absolute path), default: `""`
+- `nginx.builtin.pythonPath`: Python 3.x path (Absolute path) to be used for built-in install, default: `""`
 
 ## Commands
 
 - `nginx.installLanguageServer`: Install nginx-language-server (builtin)
   - It will be installed in this path:
     - Mac/Linux: `~/.config/coc/extensions/coc-nginx-data/nginx-language-server/venv/bin/nginx-language-server`
-    - Windows: `~/AppData/Local/coc/extensions/coc-nginx-data/nginx-language-server/venv/bin/nginx-language-server`
+    - Windows: `~/AppData/Local/coc/extensions/coc-nginx-data/nginx-language-server/venv/Scripts/nginx-language-server.exe`
 
 ## Known issue I have identified
 
