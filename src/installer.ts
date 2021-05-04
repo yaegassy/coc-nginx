@@ -23,7 +23,7 @@ export async function nginxLsInstall(pythonCommand: string, context: ExtensionCo
   statusItem.show();
 
   const installCmd =
-    `${pathVenvPython} -m venv ${pathVenv} && ` +
+    `${pythonCommand} -m venv ${pathVenv} && ` +
     `${pathVenvPython} -m pip install -U pip nginx-language-server==${NGINX_LS_VERSION}`;
 
   rimraf.sync(pathVenv);
