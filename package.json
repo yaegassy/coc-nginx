@@ -1,5 +1,5 @@
 {
-  "name": "coc-nginx",
+  "name": "@yaegassy/coc-nginx",
   "version": "0.1.0",
   "nginxLsVersion": "0.5.1",
   "description": "nginx-language-server extension for coc.nvim",
@@ -15,6 +15,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/yaegassy/coc-nginx"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "lint": "eslint src --ext ts",
