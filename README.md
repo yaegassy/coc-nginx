@@ -11,19 +11,19 @@
 
 ## Install
 
+**CocInstall**:
+
+```vim
+:CocInstall @yaegassy/coc-nginx
+```
+
+> scoped packages
+
 **vim-plug**:
 
 ```vim
 Plug 'yaegassy/coc-nginx', {'do': 'yarn install --frozen-lockfile'}
 ```
-
-**CocInstall(No plan)**:
-
-> The author of nginx-language-server is @pappasam.
->
-> @pappasam is the author of coc-jedi and jedi-language-server.
->
-> @pappasam might create coc-nginx himself, so I won't publish it on npm.
 
 ## Detect: nginx-language-server
 
