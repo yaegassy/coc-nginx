@@ -106,7 +106,11 @@ export async function activate(context: ExtensionContext): Promise<void> {
   context.subscriptions.push(
     commands.registerCommand('nginx.installLanguageServer', async () => {
       if (pythonCommand) {
+        if (client.serviceState !== 5) {
+          await client.stop();
+        }
         await installWrapper(pythonCommand, context);
+        client.start();
       } else {
         window.showErrorMessage('python3/python command not found');
       }
