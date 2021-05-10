@@ -3,19 +3,32 @@ import {
   ExtensionContext,
   LanguageClient,
   LanguageClientOptions,
-  //RevealOutputChannelOn,
   ServerOptions,
   services,
   workspace,
   window,
   WorkspaceConfiguration,
+  Disposable,
+  DocumentSelector,
+  TextEdit,
+  languages,
 } from 'coc.nvim';
 
 import fs from 'fs';
 import path from 'path';
 import which from 'which';
 
+import NginxFormattingEditProvider, { doFormat, fullDocumentRange } from './format';
 import { nginxLsInstall } from './installer';
+
+let formatterHandler: undefined | Disposable;
+
+function disposeHandlers(): void {
+  if (formatterHandler) {
+    formatterHandler.dispose();
+  }
+  formatterHandler = undefined;
+}
 
 export async function activate(context: ExtensionContext): Promise<void> {
   const { subscriptions } = context;
@@ -28,7 +41,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
     fs.mkdirSync(extensionStoragePath);
   }
 
-  // MEMO: Priority to detect pylsp
+  // MEMO: Priority to detect nginx-language-server
   //
   // 1. nginx.commandPath setting
   // 2. current environment (e.g. venv)
@@ -116,10 +129,38 @@ export async function activate(context: ExtensionContext): Promise<void> {
   const client = new LanguageClient('nginx-language-server', 'Nginx Language Server', serverOptions, clientOptions);
 
   subscriptions.push(services.registLanguageClient(client));
+
+  // ---- formatter ----
+
+  const formatterOutputChannel = window.createOutputChannel('nginx-format');
+  const editProvider = new NginxFormattingEditProvider(context, formatterOutputChannel);
+  const priority = 1;
+  const languageSelector: DocumentSelector = [{ language: 'nginx', scheme: 'file' }];
+
+  function registerFormatter(): void {
+    disposeHandlers();
+
+    formatterHandler = languages.registerDocumentFormatProvider(languageSelector, editProvider, priority);
+  }
+  registerFormatter();
+
+  context.subscriptions.push(
+    commands.registerCommand('nginx.format', async () => {
+      const doc = await workspace.document;
+
+      const code = await doFormat(context, formatterOutputChannel, doc.textDocument, undefined);
+      const edits = [TextEdit.replace(fullDocumentRange(doc.textDocument), code)];
+      if (edits) {
+        await doc.applyEdits(edits);
+      }
+    })
+  );
+
+  // ---- /formatterr ----
 }
 
 async function installWrapper(pythonCommand: string, context: ExtensionContext) {
-  const msg = 'Install "nginx-language-server"?';
+  const msg = 'Install "nginx-language-server and more tools"?';
   context.workspaceState;
 
   let ret = 0;
