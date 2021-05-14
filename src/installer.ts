@@ -6,7 +6,7 @@ import rimraf from 'rimraf';
 import child_process from 'child_process';
 import util from 'util';
 
-import { NGINX_LS_VERSION } from './constant';
+import { NGINX_LS_VERSION, NGINX_FMT_VERSION } from './constant';
 
 const exec = util.promisify(child_process.exec);
 
@@ -19,16 +19,16 @@ export async function nginxLsInstall(pythonCommand: string, context: ExtensionCo
   }
 
   const statusItem = window.createStatusBarItem(0, { progress: true });
-  statusItem.text = `Install nginx-language-server...`;
+  statusItem.text = `Install nginx-language-server and more tools...`;
   statusItem.show();
 
   const installCmd =
     `${pythonCommand} -m venv ${pathVenv} && ` +
-    `${pathVenvPython} -m pip install -U pip nginx-language-server==${NGINX_LS_VERSION}`;
+    `${pathVenvPython} -m pip install -U pip nginx-language-server==${NGINX_LS_VERSION} nginxfmt==${NGINX_FMT_VERSION}`;
 
   rimraf.sync(pathVenv);
   try {
-    window.showMessage(`Install nginx-language-server...`);
+    window.showMessage(`Install nginx-language-server and more tools...`);
     await exec(installCmd);
     statusItem.hide();
     window.showMessage(`nginx-language-server: installed!`);

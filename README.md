@@ -8,6 +8,7 @@
 
 - Completion
 - Hover
+- Format by [nginxfmt](https://pypi.org/project/nginxfmt/)
 
 ## Install
 
@@ -48,6 +49,8 @@ You can also run the installation command manually.
 - `nginx.enable`: Enable coc-nginx extension, default: `true`
 - `nginx.commandPath`: The custom path to the nginx-language-server (Absolute path), default: `""`
 - `nginx.builtin.pythonPath`: Python 3.x path (Absolute path) to be used for built-in install, default: `""`
+- `nginx.nginxfmt.commandPath`: The custom path to the nginxfmt (Absolute path), default: `""`
+- `nginx.nginxfmt.indent`: Specify number of spaces for indentation, default: `4`
 
 ## Commands
 
@@ -55,6 +58,7 @@ You can also run the installation command manually.
   - It will be installed in this path:
     - Mac/Linux: `~/.config/coc/extensions/coc-nginx-data/nginx-language-server/venv/bin/nginx-language-server`
     - Windows: `~/AppData/Local/coc/extensions/coc-nginx-data/nginx-language-server/venv/Scripts/nginx-language-server.exe`
+- `nginx.format`: Run nginxfmt
 
 ## Known issue I have identified
 
