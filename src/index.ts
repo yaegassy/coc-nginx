@@ -164,7 +164,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
 }
 
 async function installWrapper(pythonCommand: string, context: ExtensionContext) {
-  const msg = 'Install "nginx-language-server and more tools"?';
+  const msg = 'Install/Upgrade "nginx-language-server and more tools"?';
   context.workspaceState;
 
   let ret = 0;

@@ -89,7 +89,7 @@
     "commands": [
       {
         "command": "nginx.installLanguageServer",
-        "title": "Install nginx-language-server (builtin)"
+        "title": "Install/Upgrade nginx-language-server and more tools (builtin)"
       },
       {
         "command": "nginx.format",

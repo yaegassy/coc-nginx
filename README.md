@@ -54,7 +54,7 @@ You can also run the installation command manually.
 
 ## Commands
 
-- `nginx.installLanguageServer`: Install nginx-language-server (builtin)
+- `nginx.installLanguageServer`: Install/Upgrade nginx-language-server and more tools (builtin)
   - It will be installed in this path:
     - Mac/Linux: `~/.config/coc/extensions/coc-nginx-data/nginx-language-server/venv/bin/nginx-language-server`
     - Windows: `~/AppData/Local/coc/extensions/coc-nginx-data/nginx-language-server/venv/Scripts/nginx-language-server.exe`
