@@ -1,6 +1,6 @@
 {
   "name": "@yaegassy/coc-nginx",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "nginxLsVersion": "0.6.0",
   "nginxFmtVersion": "1.2.2",
   "description": "nginx-language-server extension for coc.nvim",
