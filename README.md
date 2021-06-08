@@ -28,7 +28,7 @@ Plug 'yaegassy/coc-nginx', {'do': 'yarn install --frozen-lockfile'}
 
 ## Detect: nginx-language-server
 
-1. `nginx.commandPath`
+1. `nginx.server.commandPath`
 2. current environment PATH (e.g. nginx-language-server in venv, or global)
 3. builtin nginx-language-server (Installation commands are also provided)
 
@@ -47,7 +47,7 @@ You can also run the installation command manually.
 ## Configuration options
 
 - `nginx.enable`: Enable coc-nginx extension, default: `true`
-- `nginx.commandPath`: The custom path to the nginx-language-server (Absolute path), default: `""`
+- `nginx.server.commandPath`: The custom path to the nginx-language-server (Absolute path), default: `""`
 - `nginx.builtin.pythonPath`: Python 3.x path (Absolute path) to be used for built-in install, default: `""`
 - `nginx.nginxfmt.commandPath`: The custom path to the nginxfmt (Absolute path), default: `""`
 - `nginx.nginxfmt.indent`: Specify number of spaces for indentation, default: `4`

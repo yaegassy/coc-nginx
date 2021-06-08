@@ -64,7 +64,7 @@
           "default": true,
           "description": "Enable coc-nginx extension"
         },
-        "nginx.commandPath": {
+        "nginx.server.commandPath": {
           "type": "string",
           "default": "",
           "description": "The custom path to the nginx-language-server (Absolute path)."

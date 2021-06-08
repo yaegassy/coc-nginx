@@ -43,10 +43,10 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   // MEMO: Priority to detect nginx-language-server
   //
-  // 1. nginx.commandPath setting
+  // 1. nginx.server.commandPath setting
   // 2. current environment (e.g. venv)
   // 3. builtin nginx-language-server
-  let nginxLsPath = extensionConfig.get('commandPath', '');
+  let nginxLsPath = extensionConfig.get('server.commandPath', '');
   // 1
   if (!nginxLsPath) {
     // 2
