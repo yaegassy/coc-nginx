@@ -125,9 +125,6 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   const clientOptions: LanguageClientOptions = {
     documentSelector: ['nginx'],
-    synchronize: {
-      configurationSection: 'nginx-language-server',
-    },
     outputChannelName: 'nginx-language-server',
   };
 
