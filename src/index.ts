@@ -99,7 +99,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   }
 
   // If "nginx-language-server" does not exist completely, terminate the process.
-  if (!nginxLsPath) {
+  if (!nginxLsPath || !fs.existsSync(nginxLsPath)) {
     window.showErrorMessage('Exit because "nginx-language-server" does not exist.');
     return;
   }
