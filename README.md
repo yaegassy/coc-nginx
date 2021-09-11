@@ -9,6 +9,7 @@
 - Completion
 - Hover
 - Format by [nginxfmt](https://pypi.org/project/nginxfmt/)
+- Built-in installer
 
 ## Install
 
