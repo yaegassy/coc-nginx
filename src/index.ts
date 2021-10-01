@@ -132,6 +132,15 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
   subscriptions.push(services.registLanguageClient(client));
 
+  const { document } = await workspace.getCurrentState();
+  if (document.languageId === 'nginx') {
+    try {
+      await workspace.nvim.command('setlocal iskeyword+=$');
+    } catch {
+      // noop
+    }
+  }
+
   // ---- formatter ----
 
   const formatterOutputChannel = window.createOutputChannel('nginx-format');
