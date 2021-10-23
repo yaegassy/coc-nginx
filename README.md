@@ -42,7 +42,7 @@ The first time you use coc-nginx, if nginx-language-server is not detected, you 
 You can also run the installation command manually.
 
 ```vim
-:CocComannd nginx.installLanguageServer
+:CocCommand nginx.installLanguageServer
 ```
 
 ## Configuration options
