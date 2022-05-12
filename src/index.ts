@@ -1,23 +1,22 @@
 import {
   commands,
+  Disposable,
+  DocumentSelector,
   ExtensionContext,
   LanguageClient,
   LanguageClientOptions,
+  languages,
   ServerOptions,
   services,
-  workspace,
-  window,
-  WorkspaceConfiguration,
-  Disposable,
-  DocumentSelector,
+  ServiceStat,
   TextEdit,
-  languages,
+  window,
+  workspace,
+  WorkspaceConfiguration,
 } from 'coc.nvim';
-
 import fs from 'fs';
 import path from 'path';
 import which from 'which';
-
 import NginxFormattingEditProvider, { doFormat, fullDocumentRange } from './format';
 import { nginxLsInstall } from './installer';
 
@@ -107,7 +106,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   context.subscriptions.push(
     commands.registerCommand('nginx.installLanguageServer', async () => {
       if (pythonCommand) {
-        if (client.serviceState !== 5) {
+        if (client.serviceState !== ServiceStat.Stopped) {
           await client.stop();
         }
         await installWrapper(pythonCommand, context);
@@ -172,11 +171,8 @@ export async function activate(context: ExtensionContext): Promise<void> {
 
 async function installWrapper(pythonCommand: string, context: ExtensionContext) {
   const msg = 'Install/Upgrade "nginx-language-server and more tools"?';
-  context.workspaceState;
-
-  let ret = 0;
-  ret = await window.showQuickpick(['Yes', 'Cancel'], msg);
-  if (ret === 0) {
+  const ret = await window.showPrompt(msg);
+  if (ret) {
     try {
       await nginxLsInstall(pythonCommand, context);
     } catch (e) {
