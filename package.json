@@ -51,8 +51,7 @@
     "which": "^2.0.2"
   },
   "activationEvents": [
-    "onLanguage:nginx",
-    "workspaceContains:**/nginx.conf"
+    "onLanguage:nginx"
   ],
   "contributes": {
     "configuration": {
