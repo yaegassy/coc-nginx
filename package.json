@@ -33,7 +33,7 @@
     "semi": true
   },
   "devDependencies": {
-    "@types/node": "^12.11.7",
+    "@types/node": "^18.11.19",
     "@types/rimraf": "^3.0.0",
     "@types/tmp": "^0.2.0",
     "@types/which": "^2.0.0",
