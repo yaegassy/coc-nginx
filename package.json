@@ -2,7 +2,7 @@
   "name": "@yaegassy/coc-nginx",
   "version": "0.5.0",
   "nginxLsVersion": "0.9.0",
-  "nginxFmtVersion": "1.2.2",
+  "nginxFmtVersion": "1.4.0",
   "description": "nginx-language-server extension for coc.nvim",
   "author": "yaegassy <yosstools@gmail.com>",
   "license": "MIT",

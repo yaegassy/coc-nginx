@@ -33,7 +33,7 @@ Plug 'yaegassy/coc-nginx', {'do': 'yarn install --frozen-lockfile'}
 2. current environment PATH (e.g. nginx-language-server in venv, or global)
 3. builtin nginx-language-server (Installation commands are also provided)
 
-## Bult-in install
+## Built-in install
 
 coc-nginx allows you to create an extension-only "venv" and install "nginx-language-server".
 
